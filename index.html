@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React DOM Digital Clock</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+        }
+
+        .clock {
+            padding: 20px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        #regularDiv {
+            background-color: #b3e5fc;
+        }
+
+        #reactDiv {
+            background-color: #ffe0b2;
+        }
+
+        p {
+            font-size: 1.5rem;
+            color: #555;
+        }
+
+        input {
+            margin-bottom: 10px;
+            padding: 5px;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <h1>React DOM Digital Clock</h1>
+
+        <div class="row justify-content-center">
+            <div class="col-md-5 clock" id="regularDiv">
+                this should change
+            </div>
+
+            <div class="col-md-5 clock" id="reactDiv">
+                this should change
+            </div>
+        </div>
+    </div>
+
+    <script type="text/babel">
+        // Initialize the React root node
+        const rootNode = ReactDOM.createRoot(document.getElementById("reactDiv"));
+
+        // Function to render time in the regular div
+        function renderRegularDiv() {
+            document.getElementById("regularDiv").innerHTML =
+                "<input/> <p>" + (new Date()).toString() + "</p>";
+        }
+
+        // Function to render time in the React div
+        function renderReactDiv() {
+            const myElem = (
+                <div>
+                    <input />
+                    <p>{(new Date()).toString()}</p>
+                </div>
+            );
+            rootNode.render(myElem);
+        }
+
+        // Function to render both divs
+        function renderThis() {
+            renderRegularDiv();
+            renderReactDiv();
+        }
+
+        // Set interval to update both divs every second
+        setInterval(renderThis, 1000);
+    </script>
+</body>
+</html>
